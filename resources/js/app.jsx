@@ -1,8 +1,9 @@
 import './bootstrap';
-import { render } from 'react-dom';
-import ProductsIndex from 'resources/js/Pages/Posts/ProductsIndex.js';
+import { createRoot } from 'react-dom/client';
+import PostsIndex from '@/Pages/Posts/PostsIndex.jsx';
 
-render(
-  <ProductsIndex />,
-  document.getElementById('app')
+const container = document.getElementById('app');
+const root = createRoot(container);
+root.render(
+  <PostsIndex />,
 );

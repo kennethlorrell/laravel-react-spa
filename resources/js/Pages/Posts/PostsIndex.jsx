@@ -1,19 +1,30 @@
 import { useEffect, useState } from 'react';
 import Post from '@/Components/Posts/Post.jsx';
+import Pagination from '@/Components/Posts/Pagination.jsx';
 
 const PostsIndex = () => {
+  const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
+  const [meta, setMeta] = useState({});
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch('/api/posts');
-      const { data } = await response.json();
+      const response = await fetch('/api/posts?' + new URLSearchParams({ page }));
+      const json = await response.json();
 
-      setPosts(data);
+      setPosts(json.data);
+      setMeta(json.meta);
     }
 
-    fetchPosts();
-  }, []);
+    fetchPosts(page);
+  }, [page]);
+
+  const handlePageChange = (url) => {
+    const fullUrl = new URL(url);
+    const newPage = fullUrl.searchParams.get('page');
+
+    setPage(newPage);
+  }
 
   return (
     <div className="overflow-hidden overflow-x-auto p-6 bg-white border-gray-200">
@@ -43,6 +54,10 @@ const PostsIndex = () => {
             }
           </tbody>
         </table>
+        <Pagination
+          meta={meta}
+          handlePageChange={handlePageChange}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import PaginationLinks from '@/Components/Posts/PaginationLinks.jsx';
+import PaginationLinks from '@/Components/Pagination/PaginationLinks.jsx';
 
 const Pagination = ({ meta, handlePageChange }) => {
   return (

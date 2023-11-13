@@ -1,4 +1,4 @@
-const Post = ({ post }) => {
+const PostsRow = ({ post }) => {
   return (
     <tr>
       <td>{ post.id }</td>
@@ -10,4 +10,4 @@ const Post = ({ post }) => {
   );
 };
 
-export default Post;
+export default PostsRow;

@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import Post from '@/Components/Posts/Post.jsx';
+import PostsTable from '@/Components/Posts/PostsTable.jsx';
 import Pagination from '@/Components/Pagination/Pagination.jsx';
 import CategoryFilter from '@/Components/Categories/CategoryFilter.jsx';
 
 const INITIAL_QUERY = {
-  page: 1
+  page: 1,
+  order_field: 'id',
+  order_direction: 'desc'
 };
 
 const PostsIndex = () => {
@@ -46,6 +48,20 @@ const PostsIndex = () => {
     }));
   }
 
+  const handleOrderChange = (field) => {
+    let direction = 'asc';
+
+    if (field === queryParams.order_field) {
+      direction = queryParams.order_direction === 'asc' ? 'desc' : 'asc'
+    }
+
+    setQueryParams((prevState) => ({
+      ...prevState,
+      order_field: field,
+      order_direction: direction
+    }));
+  }
+
   const handleCategorySelect = (e) => {
     e.preventDefault();
 
@@ -63,34 +79,11 @@ const PostsIndex = () => {
           categories={categories}
           handleCategorySelect={handleCategorySelect}
         />
-        <table className="table">
-          <thead className="table-header">
-          <tr>
-            <th>
-              <span>ID</span>
-            </th>
-            <th>
-              <span>Title</span>
-            </th>
-            <th>
-              <span>Content</span>
-            </th>
-            <th>
-              <span>Category</span>
-            </th>
-            <th>
-              <span>Created at</span>
-            </th>
-          </tr>
-          </thead>
-          <tbody className="table-body">
-            {
-              posts.map((post) => (
-                <Post key={post.id} post={post} />
-              ))
-            }
-          </tbody>
-        </table>
+        <PostsTable
+          posts={posts}
+          queryParams={queryParams}
+          handleOrderChange={handleOrderChange}
+        />
         <Pagination
           meta={meta}
           handlePageChange={handlePageChange}

@@ -42,6 +42,9 @@ const PostsIndex = () => {
               <span>Content</span>
             </th>
             <th>
+              <span>Category</span>
+            </th>
+            <th>
               <span>Created at</span>
             </th>
           </tr>

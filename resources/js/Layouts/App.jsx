@@ -62,6 +62,10 @@ const App = () => {
                         path="/posts/create"
                         element={<PostsCreate />}
                       />
+                      <Route
+                        path="/posts/edit/:postId"
+                        element={<PostsCreate />}
+                      />
                     </Routes>
                   </div>
                 </div>

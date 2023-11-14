@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ErrorMessage from '@/Components/Common/ErrorMessage.jsx';
 
 const PostsCreate = () => {
+  const { postId } = useParams();
+
   const [categories, setCategories] = useState([]);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,14 +24,31 @@ const PostsCreate = () => {
     fetchCategories();
   }, []);
 
+  useEffect(() => {
+    const fetchPost = async (id) => {
+      if (postId) {
+        const { data: { data } } = await axios.get(`/api/posts/${id}`);
+
+        setTitle(data.title);
+        setContent(data.content);
+        setCategoryId(data.category_id);
+      }
+    }
+
+    fetchPost(postId);
+  }, []);
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     setErrors([]);
     setIsLoading(true);
 
+    const method = postId ? 'put' : 'post';
+    const url = postId ? `/api/posts/${postId}` : '/api/posts';
+
     try {
-      await axios.post('/api/posts', {
+      await axios[method](url, {
         title,
         content,
         category_id: categoryId

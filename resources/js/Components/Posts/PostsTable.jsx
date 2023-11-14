@@ -42,6 +42,7 @@ const PostsTable = ({ posts, queryParams, handleOrderChange }) => (
           <span>Created at</span>
         </div>
       </th>
+      <th></th>
     </tr>
     </thead>
     <tbody className="table-body">

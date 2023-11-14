@@ -16,7 +16,7 @@ class UpdateRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'category_id' => 'required|numeric|exists:categories.id',
+            'category_id' => 'required|numeric|exists:categories,id',
         ];
     }
 }

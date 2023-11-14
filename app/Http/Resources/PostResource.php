@@ -20,7 +20,8 @@ class PostResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'category' => CategoryResource::make($this->category),
+            'category_id' => $this->category_id,
+            'category' => CategoryResource::make($this->whenLoaded('category')),
             'title' => $this->title,
             'content' => $content,
             'created_at' => $this->created_at->toDateTimeString()

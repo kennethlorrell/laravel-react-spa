@@ -8,14 +8,16 @@ use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Response;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(IndexRequest $request)
+    public function index(IndexRequest $request): AnonymousResourceCollection
     {
         $orderField = $request->input('order_field', 'id');
         $orderDirection = $request->input('order_direction', 'desc');
@@ -40,7 +42,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): JsonResource
     {
         $post = Post::create($request->validated());
 
@@ -50,7 +52,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Post $post): JsonResource
     {
         return PostResource::make($post);
     }
@@ -58,7 +60,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, Post $post)
+    public function update(UpdateRequest $request, Post $post): JsonResource
     {
         $post->update($request->validated());
 
@@ -68,8 +70,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post): Response
     {
-        //
+        $post->delete();
+
+        return response()->noContent();
     }
 }

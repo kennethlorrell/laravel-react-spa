@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import PostsTable from '@/Components/Posts/PostsTable.jsx';
 import Pagination from '@/Components/Pagination/Pagination.jsx';
 import CategoryFilter from '@/Components/Categories/CategoryFilter.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const INITIAL_QUERY = {
   page: 1,
@@ -14,6 +15,8 @@ const PostsIndex = () => {
   const [categories, setCategories] = useState([]);
   const [queryParams, setQueryParams] = useState(INITIAL_QUERY);
   const [meta, setMeta] = useState({});
+
+  const navigate =  useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -72,6 +75,24 @@ const PostsIndex = () => {
     }));
   }
 
+  const handlePostDelete = async (e) => {
+    const postId = e.target.value;
+
+    if (postId) {
+      try {
+        const isConfirmed = confirm(`Are you sure you want to remove Post #${postId}?`);
+
+        if (isConfirmed) {
+          await axios.delete(`/api/posts/${postId}`);
+
+          setQueryParams((prevState) => ({ ...prevState }));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
   return (
     <div className="overflow-hidden overflow-x-auto p-6 bg-white border-gray-200">
       <div className="min-w-full align-middle">
@@ -83,6 +104,7 @@ const PostsIndex = () => {
           posts={posts}
           queryParams={queryParams}
           handleOrderChange={handleOrderChange}
+          handlePostDelete={handlePostDelete}
         />
         <Pagination
           meta={meta}

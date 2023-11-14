@@ -1,7 +1,7 @@
 import PostsRow from '@/Components/Posts/PostsRow.jsx';
 import SortButton from '@/Components/Common/SortButton.jsx';
 
-const PostsTable = ({ posts, queryParams, handleOrderChange }) => (
+const PostsTable = ({ posts, queryParams, handleOrderChange, handlePostDelete }) => (
   <table className="table">
     <thead className="table-header">
     <tr>
@@ -42,13 +42,21 @@ const PostsTable = ({ posts, queryParams, handleOrderChange }) => (
           <span>Created at</span>
         </div>
       </th>
-      <th></th>
+      <th>
+        <div>
+          <span>Actions</span>
+        </div>
+      </th>
     </tr>
     </thead>
     <tbody className="table-body">
     {
       posts.map((post) => (
-        <PostsRow key={post.id} post={post} />
+        <PostsRow
+          key={post.id}
+          post={post}
+          handlePostDelete={handlePostDelete}
+        />
       ))
     }
     </tbody>

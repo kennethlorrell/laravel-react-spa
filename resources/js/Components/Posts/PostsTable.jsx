@@ -2,8 +2,8 @@ import PostsRow from '@/Components/Posts/PostsRow.jsx';
 import SortButton from '@/Components/Common/SortButton.jsx';
 
 const PostsTable = ({ posts, queryParams, handleOrderChange, handlePostDelete }) => (
-  <table className="table">
-    <thead className="table-header">
+  <table className='table'>
+    <thead className='table-header'>
     <tr>
       <th>
         <div>
@@ -49,7 +49,7 @@ const PostsTable = ({ posts, queryParams, handleOrderChange, handlePostDelete })
       </th>
     </tr>
     </thead>
-    <tbody className="table-body">
+    <tbody className='table-body'>
     {
       posts.map((post) => (
         <PostsRow

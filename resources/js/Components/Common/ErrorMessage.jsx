@@ -1,5 +1,5 @@
 const ErrorMessage = ({ errors, field }) => (
-  <div className="text-red-600 mt-1">
+  <div className='text-red-600 mt-1'>
     {
       errors?.[field]?.map((message, index) => {
         return (

@@ -12,8 +12,8 @@ const SortButton = ({ newField, oldField, direction, handleOrderChange }) => {
   return (
     <button
       onClick={() => handleOrderChange(newField)}
-      type="button"
-      className="column-sort"
+      type='button'
+      className='column-sort'
     >
       <i className={`fa-solid ${iconClasses}`}></i>
     </button>

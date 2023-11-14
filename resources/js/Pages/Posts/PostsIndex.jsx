@@ -94,8 +94,8 @@ const PostsIndex = () => {
   }
 
   return (
-    <div className="overflow-hidden overflow-x-auto p-6 bg-white border-gray-200">
-      <div className="min-w-full align-middle">
+    <div className='overflow-hidden overflow-x-auto p-6 bg-white border-gray-200'>
+      <div className='min-w-full align-middle'>
         <CategoryFilter
           categories={categories}
           handleCategorySelect={handleCategorySelect}

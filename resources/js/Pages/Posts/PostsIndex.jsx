@@ -17,11 +17,12 @@ const PostsIndex = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch('/api/posts?' + new URLSearchParams(queryParams));
-      const json = await response.json();
+      const params = new URLSearchParams(queryParams);
 
-      setPosts(json.data);
-      setMeta(json.meta);
+      const { data: { data, meta } } = await axios.get(`/api/posts?${params}`);
+
+      setPosts(data);
+      setMeta(meta);
     }
 
     fetchPosts();
@@ -29,8 +30,7 @@ const PostsIndex = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await fetch('/api/categories');
-      const { data } = await response.json();
+      const { data: { data } } = await axios.get('/api/categories');
 
       setCategories(data);
     }

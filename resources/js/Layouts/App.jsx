@@ -1,7 +1,7 @@
 import { BrowserRouter, Link, NavLink, Route, Routes } from 'react-router-dom';
 import PostsIndex from '@/Pages/Posts/PostsIndex.jsx';
 import { ErrorBoundary } from 'react-error-boundary';
-import CreatePost from '@/Components/Posts/CreatePost.jsx';
+import PostsCreate from '@/Pages/Posts/PostsCreate.jsx';
 
 const App = () => {
   return (
@@ -60,7 +60,7 @@ const App = () => {
                       />
                       <Route
                         path="/posts/create"
-                        element={<CreatePost />}
+                        element={<PostsCreate />}
                       />
                     </Routes>
                   </div>

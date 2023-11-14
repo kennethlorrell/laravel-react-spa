@@ -14,11 +14,15 @@ class PostResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $content = strlen($this->content) > 50
+            ? substr($this->content, 0, 50) . '...'
+            : $this->content;
+
         return [
             'id' => $this->id,
             'category' => CategoryResource::make($this->category),
             'title' => $this->title,
-            'content' => substr($this->content, 0, 50) . '...',
+            'content' => $content,
             'created_at' => $this->created_at->toDateTimeString()
         ];
     }

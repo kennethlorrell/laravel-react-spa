@@ -1,9 +1,9 @@
 import './bootstrap';
 import { createRoot } from 'react-dom/client';
-import PostsIndex from '@/Pages/Posts/PostsIndex.jsx';
+import App from '@/Layouts/App.jsx';
 
 const container = document.getElementById('app');
 const root = createRoot(container);
 root.render(
-  <PostsIndex />,
+  <App />,
 );

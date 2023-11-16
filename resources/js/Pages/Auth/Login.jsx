@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ErrorList from '@/Components/Common/ErrorList.jsx';
+import { Ability, AbilityBuilder } from '@casl/ability';
+import { AbilityContext } from '@/Components/Ability/Can.jsx';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+
+  const ability = useContext(AbilityContext);
   const navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
@@ -19,11 +23,21 @@ const Login = () => {
         password
       });
 
+      const { data } = await axios.get('/api/user/permissions');
+      updateAbility(data);
+
       navigate('/posts');
     } catch (err) {
       console.error(err);
       setErrors(Object.entries(err.response.data.errors));
     }
+  };
+
+  const updateAbility = (permissions) => {
+    const { can, rules } = new AbilityBuilder(Ability);
+
+    can(permissions);
+    ability.update(rules);
   };
 
   const handleEmailChange = (e) => {

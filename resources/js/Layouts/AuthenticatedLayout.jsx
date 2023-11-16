@@ -1,24 +1,21 @@
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import axios from 'axios';
+import { AbilityContext } from '@/Components/Ability/Can.jsx';
+import { Ability, AbilityBuilder } from '@casl/ability';
 
 const AuthenticatedLayout = () => {
   const navigate = useNavigate();
-
-  const handleLogoutClick = async () => {
-    try {
-      await axios.post('/logout');
-
-      navigate('/login');
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const ability = useContext(AbilityContext);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         await axios.get('/api/user');
+
+        const { data } = await axios.get('/api/user/permissions');
+
+        updateAbility(data);
       } catch (err) {
         console.log(err);
 
@@ -30,6 +27,23 @@ const AuthenticatedLayout = () => {
 
     fetchUser();
   }, []);
+
+  const handleLogoutClick = async () => {
+    try {
+      await axios.post('/logout');
+
+      navigate('/login');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const updateAbility = (permissions) => {
+    const { can, rules } = new AbilityBuilder(Ability);
+
+    can(permissions);
+    ability.update(rules);
+  };
 
   return (
     <div className='min-h-screen bg-gray-100'>

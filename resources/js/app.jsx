@@ -8,30 +8,34 @@ import { ErrorBoundary } from 'react-error-boundary';
 import GuestLayout from '@/Layouts/GuestLayout.jsx';
 import Login from '@/Pages/Auth/Login.jsx';
 import Register from '@/Pages/Auth/Register.jsx';
+import Ability from '@/Components/Ability/Ability.jsx';
+import { AbilityContext } from '@/Components/Ability/Can.jsx';
 
 const container = document.getElementById('app');
 const root = createRoot(container);
 root.render(
   <ErrorBoundary fallback={<p>An error has occurred</p>}>
-    <BrowserRouter>
-      <Routes>
+    <AbilityContext.Provider value={Ability}>
+      <BrowserRouter>
+        <Routes>
 
-        <Route path='/posts' element={<AuthenticatedLayout />}>
-          <Route index element={<PostsIndex />} />
-          <Route path='/posts/create' element={<PostsCreate />} />
-          <Route path='/posts/edit/:postId' element={<PostsCreate />} />
-        </Route>
+          <Route path='/posts' element={<AuthenticatedLayout />}>
+            <Route index element={<PostsIndex />} />
+            <Route path='/posts/create' element={<PostsCreate />} />
+            <Route path='/posts/edit/:postId' element={<PostsCreate />} />
+          </Route>
 
-        <Route path='/login' element={<GuestLayout />}>
-          <Route index element={<Login />} />
-        </Route>
-        <Route path="/register" element={<GuestLayout />}>
-          <Route index element={<Register />} />
-        </Route>
+          <Route path='/login' element={<GuestLayout />}>
+            <Route index element={<Login />} />
+          </Route>
+          <Route path="/register" element={<GuestLayout />}>
+            <Route index element={<Register />} />
+          </Route>
 
-        <Route path='*' element={<Navigate to='/posts' replace />} />
+          <Route path='*' element={<Navigate to='/posts' replace />} />
 
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </AbilityContext.Provider>
   </ErrorBoundary>
 );

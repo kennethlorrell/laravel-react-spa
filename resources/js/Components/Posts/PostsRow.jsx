@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { Can } from '@/Components/Ability/Can.jsx';
+import { PERMISSION_POST_DELETE } from '@/constants.js';
 
 const PostsRow = ({ post, handlePostDelete }) => (
   <tr>
@@ -15,14 +17,16 @@ const PostsRow = ({ post, handlePostDelete }) => (
         >
           Edit
         </Link>
-        <button
-          value={post.id}
-          onClick={handlePostDelete}
-          type='button'
-          className='px-3 py-1 bg-red-500 rounded-full text-white font-bold'
-        >
-          Delete
-        </button>
+        <Can do={PERMISSION_POST_DELETE}>
+          <button
+            value={post.id}
+            onClick={handlePostDelete}
+            type='button'
+            className='px-3 py-1 bg-red-500 rounded-full text-white font-bold'
+          >
+            Delete
+          </button>
+        </Can>
       </div>
     </td>
   </tr>

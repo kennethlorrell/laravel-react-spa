@@ -7,6 +7,7 @@ use App\Http\Requests\IndexRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Resources\PostResource;
+use App\Models\Permission;
 use App\Models\Post;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -19,6 +20,8 @@ class PostController extends Controller
      */
     public function index(IndexRequest $request): AnonymousResourceCollection
     {
+        $this->authorize(Permission::PERMISSION_POST_VIEW);
+
         $orderField = $request->input('order_field', 'id');
         $orderDirection = $request->input('order_direction', 'desc');
 
@@ -44,6 +47,8 @@ class PostController extends Controller
      */
     public function store(StoreRequest $request): JsonResource
     {
+        $this->authorize(Permission::PERMISSION_POST_CREATE);
+
         $post = Post::create($request->validated());
 
         return PostResource::make($post);
@@ -54,6 +59,8 @@ class PostController extends Controller
      */
     public function show(Post $post): JsonResource
     {
+        $this->authorize(Permission::PERMISSION_POST_VIEW);
+
         return PostResource::make($post);
     }
 
@@ -62,6 +69,8 @@ class PostController extends Controller
      */
     public function update(UpdateRequest $request, Post $post): JsonResource
     {
+        $this->authorize(Permission::PERMISSION_POST_UPDATE);
+
         $post->update($request->validated());
 
         return PostResource::make($post);
@@ -72,6 +81,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post): Response
     {
+        $this->authorize(Permission::PERMISSION_POST_DELETE);
+
         $post->delete();
 
         return response()->noContent();

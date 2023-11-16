@@ -17,7 +17,7 @@ const Login = () => {
       await axios.post('/login', {
         email,
         password
-      })
+      });
 
       navigate('/posts');
     } catch (err) {
@@ -49,7 +49,6 @@ const Login = () => {
             value={email}
             onChange={handleEmailChange}
             required
-            autoFocus
             type='email'
             id='email'
             name='email'
@@ -85,7 +84,7 @@ const Login = () => {
         </div>
 
         <div className='mt-4'>
-          Don't have an account?
+          Don&apos;t have an account?
           <Link
             to='/register'
             className='text-blue-600 ml-1'

@@ -25,12 +25,12 @@ const Pagination = ({ meta, handlePageChange }) => (
         </div>
 
         <div>
-            <span className='relative z-0 inline-flex shadow-sm rounded-md'>
-              <PaginationLinks
-                links={meta.links}
-                handlePageChange={handlePageChange}
-              />
-            </span>
+          <span className='relative z-0 inline-flex shadow-sm rounded-md'>
+            <PaginationLinks
+              links={meta.links}
+              handlePageChange={handlePageChange}
+            />
+          </span>
         </div>
       </div>
     </nav>

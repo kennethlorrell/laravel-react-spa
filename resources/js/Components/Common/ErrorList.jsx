@@ -13,7 +13,7 @@ const ErrorList = ({ errors }) => {
         }
       </ul>
     </div>
-  )
+  );
 };
 
 export default ErrorList;

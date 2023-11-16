@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import PostsTable from '@/Components/Posts/PostsTable.jsx';
 import Pagination from '@/Components/Pagination/Pagination.jsx';
 import CategoryFilter from '@/Components/Categories/CategoryFilter.jsx';
-import { useNavigate } from 'react-router-dom';
 
 const INITIAL_QUERY = {
   page: 1,
@@ -16,8 +15,6 @@ const PostsIndex = () => {
   const [queryParams, setQueryParams] = useState(INITIAL_QUERY);
   const [meta, setMeta] = useState({});
 
-  const navigate =  useNavigate();
-
   useEffect(() => {
     const fetchPosts = async () => {
       const params = new URLSearchParams(queryParams);
@@ -26,7 +23,7 @@ const PostsIndex = () => {
 
       setPosts(data);
       setMeta(meta);
-    }
+    };
 
     fetchPosts();
   }, [queryParams]);
@@ -36,7 +33,7 @@ const PostsIndex = () => {
       const { data: { data } } = await axios.get('/api/categories');
 
       setCategories(data);
-    }
+    };
 
     fetchCategories();
   }, []);
@@ -49,13 +46,13 @@ const PostsIndex = () => {
       ...prevState,
       page: newPage
     }));
-  }
+  };
 
   const handleOrderChange = (field) => {
     let direction = 'asc';
 
     if (field === queryParams.order_field) {
-      direction = queryParams.order_direction === 'asc' ? 'desc' : 'asc'
+      direction = queryParams.order_direction === 'asc' ? 'desc' : 'asc';
     }
 
     setQueryParams((prevState) => ({
@@ -63,7 +60,7 @@ const PostsIndex = () => {
       order_field: field,
       order_direction: direction
     }));
-  }
+  };
 
   const handleCategorySelect = (e) => {
     e.preventDefault();
@@ -73,7 +70,7 @@ const PostsIndex = () => {
       page: 1,
       category_id: e.target.value
     }));
-  }
+  };
 
   const handlePostDelete = async (e) => {
     const postId = e.target.value;
@@ -91,7 +88,7 @@ const PostsIndex = () => {
         console.error(err);
       }
     }
-  }
+  };
 
   return (
     <div className='overflow-hidden overflow-x-auto p-6 bg-white border-gray-200'>
@@ -113,6 +110,6 @@ const PostsIndex = () => {
       </div>
     </div>
   );
-}
+};
 
 export default PostsIndex;

@@ -22,7 +22,7 @@ const Register = () => {
         email,
         password,
         password_confirmation: passwordConfirmation
-      })
+      });
 
       navigate('/posts');
     } catch (err) {
@@ -60,7 +60,6 @@ const Register = () => {
             value={name}
             onChange={handleNameChange}
             required
-            autoFocus
             type='text'
             id='name'
             name='name'

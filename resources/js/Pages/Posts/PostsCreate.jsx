@@ -19,7 +19,7 @@ const PostsCreate = () => {
       const { data: { data } } = await axios.get('/api/categories');
 
       setCategories(data);
-    }
+    };
 
     fetchCategories();
   }, []);
@@ -33,7 +33,7 @@ const PostsCreate = () => {
         setContent(data.content);
         setCategoryId(data.category_id);
       }
-    }
+    };
 
     fetchPost(postId);
   }, []);

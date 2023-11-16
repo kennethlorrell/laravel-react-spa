@@ -4,7 +4,7 @@ const ErrorMessage = ({ errors, field }) => (
       errors?.[field]?.map((message, index) => {
         return (
           <div key={index}>{ message }</div>
-        )
+        );
       })
     }
   </div>

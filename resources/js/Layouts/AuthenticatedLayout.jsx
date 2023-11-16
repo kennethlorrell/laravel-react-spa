@@ -9,7 +9,7 @@ const AuthenticatedLayout = () => {
     try {
       await axios.post('/logout');
 
-      navigate('/login')
+      navigate('/login');
     } catch (err) {
       console.error(err);
     }
